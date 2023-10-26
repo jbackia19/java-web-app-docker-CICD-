@@ -3,27 +3,27 @@ node{
    def buildNumber = BUILD_NUMBER
    
     stage("Git CheckOut"){
-        git url: 'https://github.com/MithunTechnologiesDevOps/java-web-app-docker.git',branch: 'master'
+        git url: 'https://github.com/jbackia19/java-web-app-docker-CICD-.git',branch: 'master'
     }
     
     stage(" Maven Clean Package"){
-      def mavenHome =  tool name: "Maven-3.6.2", type: "maven"
+      def mavenHome =  tool name: "Maven-3.6.3", type: "maven"
       def mavenCMD = "${mavenHome}/bin/mvn"
       sh "${mavenCMD} clean package"
     } 
     
     stage("Build Dokcer Image") {
-         sh "docker build -t 172.31.1.204:8083/java-web-app:${buildNumber} ."
+         sh "docker build -t 52.66.211.73:8080/java-web-app:${buildNumber} ."
     }
     
     
     stage("Docker Push"){
         
        withCredentials([string(credentialsId: 'Docker_Repo_Pwd', variable: 'Docker_Repo_Pwd')]) {
-          sh "docker login -u admin -p ${Docker_Repo_Pwd}  172.31.1.204:8083"   
+          sh "docker login -u admin -p ${Docker_Repo_Pwd}  52.66.211.73:8080"   
        }
        
-        sh "docker push 172.31.1.204:8083/java-web-app:${buildNumber}"
+        sh "docker push 52.66.211.73:8080/java-web-app:${buildNumber}"
     }
 
    stage("Deploy to docker swarm cluster"){
