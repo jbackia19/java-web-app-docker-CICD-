@@ -1,7 +1,7 @@
 node{
      
     stage('SCM Checkout'){
-        git url: 'https://github.com/MithunTechnologiesDevOps/java-web-app-docker.git',branch: 'master'
+        git url: 'https://github.com/jbackia19/java-web-app-docker-CICD-.git',branch: 'master'
     }
     
     stage(" Maven Clean Package"){
@@ -18,7 +18,7 @@ node{
     
     stage('Push Docker Image'){
         withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
-          sh "docker login -u dockerhandson -p ${Docker_Hub_Pwd}"
+          sh "docker login -u jbackia19 -p ${Docker_Hub_Pwd}"
         }
         sh 'docker push dockerhandson/java-web-app'
      }
