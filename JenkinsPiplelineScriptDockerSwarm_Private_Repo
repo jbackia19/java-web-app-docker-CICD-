@@ -13,27 +13,27 @@ node{
     } 
     
     stage("Build Dokcer Image") {
-         sh "docker build -t 43.204.147.185:8080/java-web-app:${buildNumber} ."
+         sh "docker build -t 13.233.104.108:8080/java-web-app:${buildNumber} ."
     }
     
     
     stage("Docker Push"){
         
        withCredentials([string(credentialsId: 'Docker_Repo_Pwd', variable: 'Docker_Repo_Pwd')]) {
-          sh "docker login -u admin -p ${Docker_Repo_Pwd} 43.204.147.185:8080"   
+          sh "docker login -u jbackia19 -p ${Docker_Repo_Pwd} 13.233.104.108:8080"   
        }
        
-        sh "docker push 43.204.147.185:8080/java-web-app:${buildNumber}"
+        sh "docker push 13.233.104.108:8080/java-web-app:${buildNumber}"
     }
 
    stage("Deploy to docker swarm cluster"){
      sshagent(['Docker_Swarm_Manager_Dev']) {
-      sh 'ssh -o StrictHostKeyChecking=no ubuntu@43.204.147.185 docker service rm javawebapp || true'
+      sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.233.104.108 docker service rm javawebapp || true'
       withCredentials([string(credentialsId: 'Docker_Repo_Pwd', variable: 'Docker_Repo_Pwd')]) {
  
-       sh "ssh -o StrictHostKeyChecking=no ubuntu@43.204.147.185 docker login -u admin -p ${Docker_Repo_Pwd}  3.108.215.231:8083"   
+       sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.104.108 docker login -u admin -p ${Docker_Repo_Pwd}  3.108.215.231:8083"   
       }
-      sh "ssh ubuntu@43.204.147.185 docker service create --name javawebapp -p 7070:8080 --replicas 2 --with-registry-auth 3.108.215.231:8083/java-web-app:${buildNumber}"
+      sh "ssh ubuntu@13.233.104.108 docker service create --name javawebapp -p 7070:8080 --replicas 2 --with-registry-auth 3.108.215.231:8083/java-web-app:${buildNumber}"
     }
   }
     
