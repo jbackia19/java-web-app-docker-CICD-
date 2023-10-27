@@ -12,12 +12,12 @@ node
       sh "${mavenCMD} clean package"
     } 
    stage("Build Dokcer Image") {
-         sh "docker build -t sandeep08aws/javawebapp:${buildNumber} ."
+         sh "docker build -t jbackia19/javawebapp:${buildNumber} ."
     }
     stage("Docker login and Push"){
         withCredentials([string(credentialsId: 'docker_hub_password', variable: 'Dockerpassword')]){
          sh "docker login -u jbackia19 -p ${Dockerpassword} " 
-         sh "docker push sandeep08aws/javawebapp:${buildNumber}"
+         sh "docker push jbackia19/javawebapp:${buildNumber}"
         }
     }
     stage("Deploy to dockercontinor in docker deployer"){
