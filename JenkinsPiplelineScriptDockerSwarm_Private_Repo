@@ -13,17 +13,17 @@ node{
     } 
     
     stage("Build Dokcer Image") {
-         sh "docker build -t 52.66.211.73:8080/java-web-app:${buildNumber} ."
+         sh "docker build -t 3.109.108.62:8080/java-web-app:${buildNumber} ."
     }
     
     
     stage("Docker Push"){
         
        withCredentials([string(credentialsId: 'Docker_Repo_Pwd', variable: 'Docker_Repo_Pwd')]) {
-          sh "docker login -u admin -p ${Docker_Repo_Pwd}  52.66.211.73:8080"   
+          sh "docker login -u admin -p ${Docker_Repo_Pwd}  3.109.108.62:8080"   
        }
        
-        sh "docker push 52.66.211.73:8080/java-web-app:${buildNumber}"
+        sh "docker push 3.109.108.62:8080/java-web-app:${buildNumber}"
     }
 
    stage("Deploy to docker swarm cluster"){
