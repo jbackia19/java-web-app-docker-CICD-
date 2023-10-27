@@ -1,4 +1,4 @@
-#FROM tomcat:8.0.20-jre8
+FROM tomcat:8.0.20-jre8
 # Dummy text to test 
 FROM ubuntu:latest
 
