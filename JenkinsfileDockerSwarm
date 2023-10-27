@@ -16,7 +16,7 @@ node{
     
     stage("Docker Push"){
         withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
-          sh "docker login -u jbackia19 -p ${Docker_Hub_Pwd}"
+          sh "docker login -u admin -p ${Docker_Hub_Pwd}"
         }
         sh "docker push dockerhandson/java-web-app:${buildNumber}"
         
