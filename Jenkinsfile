@@ -17,8 +17,8 @@ node
     stage("Docker login and Push"){
         withCredentials([string(credentialsId: 'docker_hub_password', variable: 'Dockerpassword')]){
          sh "docker login -u jbackia19 -p ${Dockerpassword} " 
-           }
-        sh "docker push sandeep08aws/javawebapp:${buildNumber}"
+         sh "docker push sandeep08aws/javawebapp:${buildNumber}"
+        }
     }
     stage("Deploy to dockercontinor in docker deployer"){
         sshagent(['docker_ssh_password']) {
