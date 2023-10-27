@@ -30,7 +30,7 @@ node{
     stage("Deploy to docker swarm cluster"){
         sshagent(['Docker_Swarm_Manager_Dev']) {
             sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.233.104.108 docker service rm javawebapp || true'
-            sh "ssh ubuntu@13.233.104.108 docker service create --name javawebapp -p 8080:8080 --replicas 2 dockerhandson/java-web-app:${buildNumber}"
+            sh "ssh ubuntu@13.233.104.108 docker service create --name javawebapp -p 8080:8080 --replicas 2 jbackia19/java-web-app:${buildNumber}"
         }
     }
 }
