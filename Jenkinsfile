@@ -22,8 +22,8 @@ node
     }
     stage("Deploy to dockercontinor in docker deployer"){
         sshagent(['docker_ssh_password']) {
-            sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.27.135 docker rm -f cloudcandy || true"
-            sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.27.135 docker run -d -p 8080:8080 --name cloudcandy jbackia19/javawebapp:${buildNumber}"           
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@43.204.130.129 docker rm -f cloudcandy || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@43.204.130.129 docker run -d -p 8080:8080 --name cloudcandy jbackia19/javawebapp:${buildNumber}"           
          }
     }
 }    
